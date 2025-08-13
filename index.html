@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>For You, My Favorite Person 💌</title>
+    <meta
+      name="description"
+      content="A tiny corner of the web made just for you."
+    />
+    <meta property="og:title" content="For You, My Favorite Person 💌" />
+    <meta
+      property="og:description"
+      content="Open me — I made something just for you."
+    />
+    <meta property="og:type" content="website" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💖</text></svg>"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0f0f14;
+        --bg-soft: #151521;
+        --fg: #f7f7fb;
+        --muted: #b7b8c7;
+        --accent: #ff6fa9; /* primary pink */
+        --accent-2: #7aa6ff; /* soft blue */
+        --glass: rgba(255, 255, 255, 0.08);
+        --card: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.1),
+          rgba(255, 255, 255, 0.02)
+        );
+        --ring: rgba(255, 111, 169, 0.45);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+body {
+  margin: 0;
+  /* single all-blue gradient */
+  background: linear-gradient(135deg, #0b1d3a 0%, #1f4aa8 50%, #7aa6ff 100%);
+  background-attachment: fixed;
+  color: var(--fg);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+      a {
+        color: var(--fg);
+      }
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* --- HERO --- */
+      header.hero {
+        position: relative;
+        padding: 96px 0 72px;
+        text-align: center;
+      }
+      .sparkles {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.3;
+      }
+      h1 {
+        margin: 0 0 12px;
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+        font-size: clamp(28px, 8vw, 64px);
+        background: linear-gradient(180deg, #fff, #ffd7e9 40%, #c4d9ff 80%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 6px 30px rgba(255, 111, 169, 0.25);
+      }
+      .typer {
+        font-weight: 600;
+        font-size: clamp(14px, 3.4vw, 20px);
+        color: var(--muted);
+      }
+      .badges {
+        margin-top: 22px;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .chip {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: var(--glass);
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-size: 13px;
+      }
+
+      /* --- CTA CARD --- */
+      .cta {
+        margin: 34px auto 0;
+        width: min(780px, 95%);
+        background: var(--card);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 22px;
+        padding: 26px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 60px rgba(0, 0, 0, 0.35),
+          0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+      }
+      .cta::after {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: 22px;
+        padding: 1px;
+        background: linear-gradient(
+          120deg,
+          transparent,
+          rgba(255, 111, 169, 0.4),
+          rgba(122, 166, 255, 0.35),
+          transparent
+        );
+        -webkit-mask: linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+      }
+      .cta .row {
+        display: flex;
+        gap: 22px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .cta .emoji {
+        font-size: 40px;
+        filter: drop-shadow(0 10px 18px rgba(255, 111, 169, 0.5));
+      }
+      .cta .text {
+        flex: 1;
+        min-width: 240px;
+      }
+      .cta h2 {
+        margin: 0 0 6px;
+        font-size: clamp(18px, 4.8vw, 28px);
+      }
+      .cta p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .cta .actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        appearance: none;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.15),
+          rgba(255, 255, 255, 0.04)
+        );
+        padding: 12px 16px;
+        border-radius: 14px;
+        color: white;
+        cursor: pointer;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+        box-shadow: 0 8px 28px rgba(255, 111, 169, 0.25);
+        transition: transform 0.15s ease, box-shadow 0.2s ease,
+          background 0.2s ease;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 32px rgba(255, 111, 169, 0.35);
+      }
+      .btn.primary {
+        background: linear-gradient(
+          92deg,
+          var(--accent),
+          #ff93c0 40%,
+          var(--accent-2)
+        );
+        border-color: transparent;
+      }
+
+      /* --- REASONS --- */
+      section {
+        padding: 64px 0;
+      }
+      .section-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(22px, 5.2vw, 34px);
+        text-align: center;
+        margin: 0 0 28px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 16px;
+      }
+      .card {
+        grid-column: span 4;
+        min-height: 140px;
+        background: var(--card);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 18px;
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .card .shine {
+        position: absolute;
+        inset: -1px;
+        pointer-events: none;
+        background: radial-gradient(
+          600px 200px at var(--mx, 50%) -10%,
+          rgba(255, 255, 255, 0.18),
+          transparent 30%
+        );
+      }
+
+      @media (max-width: 920px) {
+        .card {
+          grid-column: span 6;
+        }
+      }
+      @media (max-width: 620px) {
+        .card {
+          grid-column: span 12;
+        }
+      }
+
+      /* --- POLAROIDS --- */
+      .polaroids {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 18px;
+        perspective: 1000px;
+      }
+      .polaroid {
+        grid-column: span 4;
+        background: #fff;
+        color: #222;
+        border-radius: 14px;
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4);
+        padding: 8px 8px 18px;
+        transform: rotate(var(--rot, -2deg));
+        transition: transform 0.2s ease;
+      }
+      .polaroid:hover {
+        transform: translateY(-4px) rotate(calc(var(--rot) + 1deg));
+      }
+      .polaroid img {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+      .polaroid .cap {
+        font-family: "Playfair Display", serif;
+        text-align: center;
+        font-size: 14px;
+        margin-top: 10px;
+      }
+      @media (max-width: 820px) {
+        .polaroid {
+          grid-column: span 6;
+        }
+      }
+      @media (max-width: 560px) {
+        .polaroid {
+          grid-column: span 12;
+        }
+      }
+
+      /* --- LETTER --- */
+      .letter-wrap {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 16px;
+        align-items: center;
+      }
+      .envelope {
+        grid-column: span 5;
+        min-height: 260px;
+        position: relative;
+      }
+      .paper {
+        grid-column: span 7;
+      }
+      @media (max-width: 880px) {
+        .envelope {
+          grid-column: span 12;
+          order: 2;
+        }
+        .paper {
+          grid-column: span 12;
+          order: 1;
+        }
+      }
+
+      .env {
+        width: 100%;
+        height: 260px;
+        position: relative;
+        border-radius: 18px;
+        overflow: hidden;
+        background: linear-gradient(180deg, #ffe3ee, #ffd2ea);
+        border: 1px solid #ffb7d7;
+        box-shadow: 0 12px 36px rgba(255, 111, 169, 0.25);
+      }
+      .env::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          120deg,
+          rgba(255, 255, 255, 0.4),
+          transparent 60%
+        );
+        mix-blend: overlay;
+      }
+      .seal {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 32% 28%, #ff5f9f, #ff87b8);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+      .heart {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 34px;
+      }
+
+      .paper-card {
+        background: #12121b;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+      .paper-card h3 {
+        margin: 0 0 8px;
+      }
+      .paper-card p {
+        margin: 0 0 12px;
+        color: var(--muted);
+      }
+      .reveal {
+        margin-top: 10px;
+      }
+
+      .hidden-letter {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.6s ease;
+      }
+      .hidden-letter.open {
+        max-height: 1000px;
+      }
+
+      .note {
+        white-space: pre-wrap;
+        color: #eaeaf5;
+      }
+
+      /* --- COUNTDOWN --- */
+      .countdown {
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+      .tile {
+        background: var(--glass);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        text-align: center;
+        border-radius: 14px;
+        padding: 12px;
+      }
+      .tile .num {
+        font-size: 28px;
+        font-weight: 800;
+      }
+      .tile .lab {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      /* --- FOOTER --- */
+      footer {
+        padding: 40px 0 80px;
+        text-align: center;
+        color: var(--muted);
+      }
+      footer .sig {
+        font-family: "Playfair Display", serif;
+        font-size: 22px;
+        color: #fff;
+      }
+
+      /* click hearts */
+      .pop-heart {
+        position: fixed;
+        pointer-events: none;
+        will-change: transform, opacity;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas class="sparkles" id="sparkles"></canvas>
+
+    <header class="hero">
+      <div class="wrap">
+        <h1>For <span id="nameTarget">You</span></h1>
+        <div class="typer">
+          <span id="typewriter"></span><span id="caret">▍</span>
+      </div>
+    </header>
+
+    <!-- REASONS -->
+  <section id="reasons">
+    <h2 class="section-title">A Few Reasons I Adore You</h2>
+    <div class="grid">
+      <article class="card">
+        <div class="shine"></div>
+        <h3>Your singing</h3>
+        <p>It lifts my mood instantly — like you’re turning the volume up on happiness and motivation.</p>
+      </article>
+      <article class="card">
+        <div class="shine"></div>
+        <h3>Your foot</h3>
+        <p>It somehow makes me fall for you even more… hehehe, don’t ask how, it just does.</p>
+      </article>
+      <article class="card">
+        <div class="shine"></div>
+        <h3>Your recipes</h3>
+        <p>They inspire me to try more — not just in the kitchen, but in life.</p>
+      </article>
+      <article class="card">
+        <div class="shine"></div>
+        <h3>That laugh</h3>
+        <p>It’s the kind that makes gloomy days pack their bags.</p>
+      </article>
+      <article class="card">
+        <div class="shine"></div>
+        <h3>…and so many more</h3>
+        <p>If I kept going, we’d run out of internet space — but trust me, the list grows every day.</p>
+      </article>
+    </div>
+  </section>
+
+      <!-- LETTER -->
+      <section id="letter">
+        <h2 class="section-title">A Letter For You</h2>
+        <div class="letter-wrap">
+          <div class="envelope">
+            <div class="env">
+              <div class="seal"></div>
+              <div class="heart">🦶💗</div>
+            </div>
+          </div>
+          <div class="paper">
+            <div class="paper-card">
+              <h3>Open when you want to feel loved</h3>
+              <p>
+                Click the button and let the page breathe out what I’ve been
+                holding in.
+              </p>
+              <div class="actions reveal">
+                <button class="btn primary" id="openLetter">
+                  Open the letter
+                </button>
+                <button class="btn" id="sprinkle">Sprinkle hearts</button>
+              </div>
+              <div class="hidden-letter" id="letterBody">
+                <p class="note" id="letterText">
+
+                    Heyyy you, Sahiba…
+
+                    I know what you’re probably thinking right now, “Oh no, is this some kind of love letter?”
+                    Well… it might be. You never know. 😆
+
+                    But jokes aside, I just wanted to write down what I feel.
+                    You know, I love giving gifts to the people I care about,
+                    the ones who make my world a little brighter. 
+                    And that day when I saw you crying… something inside me just went, “Okay, that’s it, 
+                    I need to do something to make her smile again.”
+
+                    Remember that one time we were chatting and you told me to figure out what you like?
+                    Well, I guess I took that challenge way too seriously… and here we are. 😏
+
+                    So here’s a little something from me to you, not just because of a challenge, 
+                    not just because you were sad, 
+                    but because you genuinely matter to me.
+                    Your smile is rare, and I think the world deserves to see it more often, especially me.
+
+                    No pressure, no perfect endings promised, just me, choosing you in the small ways. Cooking
+                    suggestions. Song recommendations. The long way home so we can talk
+                    more. I’m excited for all the tiny tomorrows with you. Always
+                    here...
+
+                    Be happy.
+                    Always, always be happy.
+
+                    — Yours in mischief & care,
+                    Meet Savaj  
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+        <!-- Music player -->
+        <div style="margin-top:20px; text-align:center;">
+        <audio id="bgMusic" controls loop>
+            <source src="./Sahiba(KoshalWorld.Com).mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <p style="color:var(--muted); font-size:14px;">🎵 A song that reminds me of you</p>
+        </div>
+      <div class="wrap">
+        <div class="sig">
+          — With love, <span id="yourName">[Your Name]</span>
+        </div>
+        <div style="margin-top: 10px">
+          Made only for <span id="herName">[Her Name]</span>. If you’re reading
+          this, you’re special.
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      /* =========================
+       🔧 QUICK CUSTOMIZATION
+       - Change recipient & sender names below
+       - Put the date you met/started talking
+       - Replace gallery images above
+       ========================= */
+      const RECIPIENT_NAME = "Aastha (Sahiba)"; // e.g. "Aanya"
+      const SENDER_NAME = "Meet"; // e.g. "Meet"
+      const START_DATE = "2024-12-25T00:00:00"; // YYYY-MM-DD or ISO
+
+      // typewriter lines (edit freely)
+      const TYPE_LINES = [
+        `Hi ${RECIPIENT_NAME} — this page is yours.`,
+        "I made it to keep a little of your smile here.",
+        "Ready to open your gift? 🎁",
+      ];
+
+      // Letter body (optional: edit string below instead of editing HTML)
+      // document.getElementById('letterText').textContent = `...`;
+
+      /* === smooth scroll === */
+      function scrollToId(id) {
+        document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+      }
+
+      /* === name injection === */
+      document.getElementById("nameTarget").textContent = RECIPIENT_NAME;
+      document.getElementById("yourName").textContent = SENDER_NAME;
+      document.getElementById("herName").textContent = RECIPIENT_NAME;
+
+      /* === typewriter === */
+      const typer = document.getElementById("typewriter");
+      const caret = document.getElementById("caret");
+      let line = 0,
+        col = 0,
+        dir = 1;
+      function tick() {
+        const target = TYPE_LINES[line];
+        col += dir;
+        if (col < 0) {
+          col = 0;
+          dir = 1;
+          line = (line + 1) % TYPE_LINES.length;
+        }
+        if (col > target.length + 3) {
+          dir = -1;
+        }
+        typer.textContent = target.slice(0, Math.min(col, target.length));
+      }
+      setInterval(tick, 50);
+      setInterval(() => {
+        caret.style.opacity = caret.style.opacity === "0" ? "1" : "0";
+      }, 500);
+
+      /* === cards hover shine === */
+      document.querySelectorAll(".card").forEach((c) => {
+        c.addEventListener("mousemove", (e) => {
+          const r = c.getBoundingClientRect();
+          c.style.setProperty(
+            "--mx",
+            ((e.clientX - r.left) / r.width) * 100 + "%"
+          );
+        });
+      });
+
+      /* === reveal letter & hearts === */
+      const openBtn = document.getElementById("openLetter");
+      const bodyEl = document.getElementById("letterBody");
+      openBtn.addEventListener("click", () => {
+        bodyEl.classList.toggle("open");
+        popHearts(18);
+      });
+
+      document
+        .getElementById("sprinkle")
+        .addEventListener("click", () => popHearts(12));
+
+      function popHearts(n = 10) {
+        for (let i = 0; i < n; i++) {
+          const el = document.createElement("div");
+          el.className = "pop-heart";
+          el.textContent = ["💗", "💖", "💞", "💘"][
+            Math.floor(Math.random() * 4)
+          ];
+          const x = Math.random() * window.innerWidth;
+          const y = window.innerHeight - 40;
+          const s = 0.8 + Math.random() * 1.4;
+          el.style.left = x + "px";
+          el.style.top = y + "px";
+          el.style.fontSize = 18 * s + "px";
+          document.body.appendChild(el);
+          const dx = (Math.random() * 2 - 1) * 120; // drift
+          const dy = 180 + Math.random() * 160; // rise
+          const rot = (Math.random() * 2 - 1) * 30;
+          el.animate(
+            [
+              { transform: `translate(0,0) rotate(0deg)`, opacity: 1 },
+              {
+                transform: `translate(${dx}px,-${dy}px) rotate(${rot}deg)`,
+                opacity: 0,
+              },
+            ],
+            {
+              duration: 1400 + Math.random() * 800,
+              easing: "cubic-bezier(.2,.6,.2,1)",
+            }
+          ).onfinish = () => el.remove();
+        }
+      }
+
+      /* === countdown since start === */
+      const dEl = document.getElementById("d");
+      const hEl = document.getElementById("h");
+      const mEl = document.getElementById("m");
+      const sEl = document.getElementById("s");
+      function updateCountdown() {
+        const start = new Date(START_DATE).getTime();
+        const now = Date.now();
+        let diff = Math.max(0, now - start);
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        diff -= d * (1000 * 60 * 60 * 24);
+        const h = Math.floor(diff / (1000 * 60 * 60));
+        diff -= h * (1000 * 60 * 60);
+        const m = Math.floor(diff / (1000 * 60));
+        diff -= m * (1000 * 60);
+        const s = Math.floor(diff / 1000);
+        dEl.textContent = d;
+        hEl.textContent = h;
+        mEl.textContent = m;
+        sEl.textContent = s;
+      }
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+
+      /* === background sparkles (canvas) === */
+      const canvas = document.getElementById("sparkles");
+      const ctx = canvas.getContext("2d");
+      let W, H;
+      let dots = [];
+      function resize() {
+        canvas.width = W = innerWidth;
+        canvas.height = H = document.body.scrollHeight;
+      }
+      addEventListener("resize", resize);
+      resize();
+      function makeDot() {
+        return {
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: Math.random() * 1.6 + 0.2,
+          v: Math.random() * 0.3 + 0.05,
+          a: Math.random() * Math.PI * 2,
+        };
+      }
+      for (let i = 0; i < 180; i++) dots.push(makeDot());
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        for (const d of dots) {
+          d.x += Math.cos(d.a) * d.v;
+          d.y += Math.sin(d.a) * d.v;
+          if (d.x < 0 || d.x > W || d.y < 0 || d.y > H)
+            Object.assign(d, makeDot());
+          const g = ctx.createRadialGradient(d.x, d.y, 0, d.x, d.y, d.r * 6);
+          g.addColorStop(0, "rgba(255,255,255,0.08)");
+          g.addColorStop(1, "rgba(255,255,255,0)");
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(d.x, d.y, d.r * 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    </script>
+  </body>
+</html>
